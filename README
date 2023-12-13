@@ -1,0 +1,53 @@
+============== -*- outline -*- ==============
+
+		README
+
+2023/12/12	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+=============================================
+
+-----------------------------------------
+* What is this ?
+-----------------------------------------
+
+	This script parse Linux BSP that how many patches are backported
+	from upstream or how many local patch are used.
+
+-----------------------------------------
+* How to use ?
+-----------------------------------------
+
+	1) Goto Target Linux Kernel
+
+		> cd xxx/linux
+
+	2) call parse_linux.py from Linux dir
+
+		> ${linux-bsp-stat}/script/parse_linux.py [-t] [-H] ${commit_from} ${commit_to}
+
+		-t		: output to txt  file
+		-H		: output to html file
+		commit_from	: parse commit from
+		commit_to	: parse commit to
+
+	ex) parse v6.1 base BSP, print on console
+
+		> ../parse_linux.py v6.1.64  v6.1.64-my-BSP
+
+	ex) parse v6.1 base BSP, print to txt / html file
+
+		> ../parse_linux.py -t -H v6.1.64  v6.1.64-my-BSP
+		> ls
+		... v6.1.64-my-BSP.txt   v6.1.64-my-BSP.html
+
+-----------------------------------------
+* How to update data file ?
+-----------------------------------------
+
+	When Linux kernel version was updated, someone need to update data file.
+
+	ex) v6.2 was released
+
+		> cd ${LINUX}
+		> ${linux-bsp-stat}/script/make-commit-list.sh v6.1 v6.2
+		> ls ${linux-bsp-stat}/data
+		... v6.2
