@@ -58,7 +58,7 @@ class linux (lib.base):
 
         self.linux_path		= linux_path
         self.top		= os.path.abspath("{}/..".format(os.path.dirname(__file__)))
-        self.bsp_title		= commit_to
+        self.bsp_title		= commit_to.replace('/', '-')	# topic/bsp -> topic-bsp
         self.printout_way	= []
 
         ver_log = self.runl("git -C {} show {}:Makefile | head -n 4".format(linux_path, commit_from))
