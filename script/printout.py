@@ -12,11 +12,6 @@ import lib
 #===============================
 class plane:
     #--------------------
-    # finish()
-    #--------------------
-    def finish(self):
-        return
-    #--------------------
     # print()
     #--------------------
     def print(self, bsp_subject, upstream_commit, from_kernel_ver):
@@ -43,12 +38,12 @@ class txt(lib.print_base):
 #===============================
 class html(lib.print_base):
     #--------------------
-    # finish()
+    # __del__()
     #--------------------
-    def finish(self):
+    def __del__(self):
         self.file.write("</table>\n")
         self.file.write("</html>\n")
-        super().finish()
+        super().__del__()
 
     #--------------------
     # __init__()

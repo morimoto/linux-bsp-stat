@@ -14,9 +14,9 @@ import subprocess
 #===============================
 class print_base:
     #--------------------
-    # finish()
+    # __del__()
     #--------------------
-    def finish(self):
+    def __del__(self):
         self.file.close()
 
     #--------------------

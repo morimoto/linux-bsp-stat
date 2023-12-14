@@ -89,9 +89,6 @@ class linux (lib.base):
             for way in self.printout_way:
                 way.print(self.git_subject(bsp_commit), upstream_commit, from_kernel_ver)
 
-        for way in self.printout_way:
-            way.finish()
-
 #====================================
 #
 # As command
