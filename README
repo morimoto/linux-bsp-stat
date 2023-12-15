@@ -13,7 +13,7 @@
 	from upstream or how many local patch are used.
 
 -----------------------------------------
-* How to use ?
+* How to use ? (txt/html)
 -----------------------------------------
 
 	1) Goto Target Linux Kernel
@@ -38,6 +38,31 @@
 		> ../parse_linux.py -t -H v6.1.64  v6.1.64-my-BSP
 		> ls
 		... v6.1.64-my-BSP.txt   v6.1.64-my-BSP.html
+
+-----------------------------------------
+* How to use ? (graph)
+-----------------------------------------
+
+	1) install tools
+
+		> sudo ./script/tool-install.xxx
+
+	2) create target statistics with -t option
+
+		ex)
+		> cd ${LINUX}
+		> ../parse_linux.py -t v6.1.62 v6.1.62-my-BSP
+		> ../parse_linux.py -t v6.1.63 v6.1.63-my-BSP
+		> ../parse_linux.py -t v6.1.64 v6.1.64-my-BSP
+
+	3) make graph
+
+		ex)
+		> script/make-graph.py v6.1.62-my-BSP.txt \
+				       v6.1.63-my-BSP.txt \
+				       v6.1.64-my-BSP.txt
+		> ls
+		... graph.pdf ...
 
 -----------------------------------------
 * How to update data file ?
