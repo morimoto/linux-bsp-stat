@@ -18,4 +18,6 @@ TO=$2
 
 [ x${FROM} = x -o x${TO} = x ] && echo "need FROM and TO" && exit
 
-git log --format=%H ${FROM}..${TO} > ${TOP}/data/${TO}
+TO_TXT=`echo "${TO}" | sed "s/\//-/g"`
+
+git log --format=%H ${FROM}..${TO} > ${TOP}/data/${TO_TXT}
