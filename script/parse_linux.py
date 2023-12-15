@@ -28,12 +28,24 @@ class linux (lib.base):
     #--------------------
     def cherry_pick_commit(self, commit):
         log = self.run("git -C {} log -1 {} | grep \"cherry picked from commit\"".format(self.linux_path, commit))
-        m = re.search("cherry picked from commit ([0-f]+)", log)
+        if (len(log)):
+            m = re.search("cherry picked from commit ([0-f]+)", log)
+            if (m):
+                return m.group(1)
 
-        if (not m):
-            return None
+        log = self.run("git -C {} log -1 {} | grep \"commit [0-f]* upstream\.\"".format(self.linux_path, commit))
+        if (len(log)):
+            m = re.search("commit ([0-f]+) upstream.", log)
+            if (m):
+                return m.group(1)
 
-        return m.group(1)
+        log = self.run("git -C {} log -1 {} | grep \"Upstream commit:* [0-f]*\"".format(self.linux_path, commit))
+        if (len(log)):
+            m = re.search("Upstream commit[:]? ([0-f]+)", log)
+            if (m):
+                return m.group(1)
+
+        return None
 
     #--------------------
     # cherry_pick_from()
