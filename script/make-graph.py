@@ -51,7 +51,7 @@ class make_graph (lib.base):
         for ver in ver_array:
             for file in file_array:
                 num = self.run("grep {} {} | wc -l".format(ver, file))
-                self.run("echo \"{} {}\" >> {}/{}".format(file, num, dir, ver))
+                self.run("echo \"{} {}\" >> {}/{}".format(os.path.splitext(file)[0], num, dir, ver))
 
         # create gnuplot file
         with open("{}/gnuplot".format(dir), mode='w') as f:
