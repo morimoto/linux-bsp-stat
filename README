@@ -22,18 +22,19 @@
 
 	2) call parse_linux.py from Linux dir
 
-		> ${linux-bsp-stat}/script/parse_linux.py [-t] [-H] ${commit_from} ${commit_to}
+		> ${linux-bsp-stat}/script/parse_linux.py [-t] [-H] [commit_from] commit_to
 
 		-t		: output to txt  file
 		-H		: output to html file
 		commit_from	: parse commit from
+				  default: parseit from commit_to's Makefile
 		commit_to	: parse commit to
 
-	ex) parse v6.1 base BSP, print on console
+	ex) parse v6.1 base BSP, print on console, use Makefile for commit_from
 
-		> ../parse_linux.py v6.1.64  v6.1.64-my-BSP
+		> ../parse_linux.py v6.1.64-my-BSP
 
-	ex) parse v6.1 base BSP, print to txt / html file
+	ex) parse v6.1 base BSP, print to txt / html file, select commit_from
 
 		> ../parse_linux.py -t -H v6.1.64  v6.1.64-my-BSP
 		> ls

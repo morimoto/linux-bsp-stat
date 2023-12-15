@@ -51,7 +51,7 @@ class linux (lib.base):
     #--------------------
     # __init__()
     #--------------------
-    def __init__(self, linux_path, commit_from, commit_to):
+    def __init__(self, linux_path, commit_to, commit_from = None):
 
         if (not os.path.exists(linux_path)):
             raise Exception("Linux not exist")
@@ -61,10 +61,11 @@ class linux (lib.base):
         self.bsp_title		= commit_to.replace('/', '-')	# topic/bsp -> topic-bsp
         self.printout_way	= []
 
-        ver_log = self.runl("git -C {} show {}:Makefile | head -n 4".format(linux_path, commit_from))
-        self.base_ver = "{}.{}.{}".format(ver_log[1].split(" = ")[1],
-                                          ver_log[2].split(" = ")[1],
-                                          ver_log[3].split(" = ")[1])
+        if (not commit_from):
+            ver_log = self.runl("git -C {} show {}:Makefile | head -n 4".format(linux_path, commit_to))
+            commit_from = "v{}.{}.{}".format(ver_log[1].split(" = ")[1],
+                                             ver_log[2].split(" = ")[1],
+                                             ver_log[3].split(" = ")[1])
 
         self.bsp_commit_list = self.runl("git -C {} log --oneline --format=%H {}..{}".format(linux_path, commit_from, commit_to))
 
@@ -111,10 +112,17 @@ if __name__=='__main__':
         not os.path.exists("{}/MAINTAINERS".format(cwd))):
         sys.exit("You need to use this command from Linux dir")
 
-    if (len(args) != 2):
+    ver_from	= None
+    ver_to	= None
+    if (len(args) == 1):
+        ver_to   = args[0]
+    elif (len(args) == 2):
+        ver_from = args[0]
+        ver_to   = args[1]
+    else:
         sys.exit("commit_from / commit_to are required")
 
-    lx = linux("/home/morimoto/WORK/linux", args[0], args[1])
+    lx = linux("/home/morimoto/WORK/linux", ver_to, ver_from)
 
     cnt = 0
     if (options.text):
