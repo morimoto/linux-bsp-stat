@@ -13,6 +13,24 @@
 	from upstream or how many local patch are used.
 
 -----------------------------------------
+* Prepare Linux Kernel
+-----------------------------------------
+
+	You need to prepare your taget BSP Linux kernel dir.
+	It is not mandatory but you may want to have Mainline tree and LTS tree
+	on it, otherwise you might not find base kernel version.
+
+	Mainline
+		git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+		https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+		https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux.git
+
+	LTS
+		git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+		https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+		https://kernel.googlesource.com/pub/scm/linux/kernel/git/stable/linux.git
+
+-----------------------------------------
 * How to use ? (txt/html)
 -----------------------------------------
 
