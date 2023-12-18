@@ -21,25 +21,25 @@ class linux (lib.base):
     # git_subject
     #--------------------
     def git_subject(self, commit):
-        return self.run("git -C {} log -1 --format=%s {}".format(self.linux_path, commit))
+        return self.run("git log -1 --format=%s {}".format(commit))
 
     #--------------------
     # cherry_pick_commit()
     #--------------------
     def cherry_pick_commit(self, commit):
-        log = self.run("git -C {} log -1 {} | grep \"cherry picked from commit\"".format(self.linux_path, commit))
+        log = self.run("git log -1 {} | grep \"cherry picked from commit\"".format(commit))
         if (len(log)):
             m = re.search("cherry picked from commit ([0-f]+)", log)
             if (m):
                 return m.group(1)
 
-        log = self.run("git -C {} log -1 {} | grep \"commit [0-f]* upstream\.\"".format(self.linux_path, commit))
+        log = self.run("git log -1 {} | grep \"commit [0-f]* upstream\.\"".format(commit))
         if (len(log)):
             m = re.search("commit ([0-f]+) upstream.", log)
             if (m):
                 return m.group(1)
 
-        log = self.run("git -C {} log -1 {} | grep \"Upstream commit:* [0-f]*\"".format(self.linux_path, commit))
+        log = self.run("git log -1 {} | grep \"Upstream commit:* [0-f]*\"".format(commit))
         if (len(log)):
             m = re.search("Upstream commit[:]? ([0-f]+)", log)
             if (m):
@@ -63,23 +63,19 @@ class linux (lib.base):
     #--------------------
     # __init__()
     #--------------------
-    def __init__(self, linux_path, commit_to, commit_from = None):
+    def __init__(self, commit_to, commit_from = None):
 
-        if (not os.path.exists(linux_path)):
-            raise Exception("Linux not exist")
-
-        self.linux_path		= linux_path
         self.top		= os.path.abspath("{}/..".format(os.path.dirname(__file__)))
         self.bsp_title		= commit_to.replace('/', '-')	# topic/bsp -> topic-bsp
         self.printout_way	= []
 
         if (not commit_from):
-            ver_log = self.runl("git -C {} show {}:Makefile | head -n 4".format(linux_path, commit_to))
+            ver_log = self.runl("git show {}:Makefile | head -n 4".format(commit_to))
             commit_from = "v{}.{}.{}".format(ver_log[1].split(" = ")[1],
                                              ver_log[2].split(" = ")[1],
                                              ver_log[3].split(" = ")[1])
 
-        self.bsp_commit_list = self.runl("git -C {} log --oneline --format=%H {}..{}".format(linux_path, commit_from, commit_to))
+        self.bsp_commit_list = self.runl("git log --oneline --format=%H {}..{}".format(commit_from, commit_to))
 
     #--------------------
     # add_print()
@@ -134,7 +130,7 @@ if __name__=='__main__':
     else:
         sys.exit("commit_from / commit_to are required")
 
-    lx = linux("/home/morimoto/WORK/linux", ver_to, ver_from)
+    lx = linux(ver_to, ver_from)
 
     cnt = 0
     if (options.text):
