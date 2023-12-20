@@ -14,8 +14,11 @@ class plane:
     #--------------------
     # print()
     #--------------------
-    def print(self, bsp_subject, upstream_commit, from_kernel_ver):
-        print("{:<9s} / {:<}".format(from_kernel_ver, bsp_subject))
+    def print(self, bsp_subject, bsp_commit, upstream_commit, from_kernel_ver):
+        print("{:<9s} / ".format(from_kernel_ver), end="")
+        if (bsp_commit):
+            print("{} / ".format(bsp_commit), end="")
+        print("{:<}".format(bsp_subject))
 
 #===============================
 # printout txt
@@ -30,8 +33,12 @@ class txt(lib.print_base):
     #--------------------
     # print()
     #--------------------
-    def print(self, bsp_subject, upstream_commit, from_kernel_ver):
-        self.file.write("{:<9s} / {:<}\n".format(from_kernel_ver, bsp_subject))
+    def print(self, bsp_subject, bsp_commit, upstream_commit, from_kernel_ver):
+        self.file.write("{:<9s} / ".format(from_kernel_ver))
+        if (bsp_commit):
+            self.file.write("{} / ".format(bsp_commit))
+        self.file.write("{:<}\n".format(bsp_subject))
+
 
 #===============================
 # printout html
@@ -55,11 +62,12 @@ class html(lib.print_base):
     #--------------------
     # print()
     #--------------------
-    def print(self, bsp_subject, upstream_commit, from_kernel_ver):
+    def print(self, bsp_subject, bsp_commit, upstream_commit, from_kernel_ver):
         self.file.write("<tr><td>{}</td><td>".format(from_kernel_ver))
-        if (from_kernel_ver != "Local"):
-            self.file.write("<a href=\"https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id={}\">{}</a>".format(upstream_commit, bsp_subject))
-        else:
+        if (bsp_commit):
+            self.file.write("{}</td><td>".format(bsp_commit))
+        if (from_kernel_ver == "Local"):
             self.file.write(bsp_subject)
-
+        else:
+                self.file.write("<a href=\"https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id={}\">{}</a>".format(upstream_commit, bsp_subject))
         self.file.write("</td></tr>\n")

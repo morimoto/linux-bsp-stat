@@ -127,12 +127,14 @@ class linux (lib.base):
     #--------------------
     # printout
     #--------------------
-    def printout(self):
+    def printout(self, with_bsp_commit):
         for bsp_commit in self.bsp_commit_list:
             upstream_commit	= self.cherry_pick_commit(bsp_commit)
             from_kernel_ver	= self.cherry_pick_from(upstream_commit)
             for way in self.printout_way:
-                way.print(self.git_subject(bsp_commit), upstream_commit, from_kernel_ver)
+                way.print(self.git_subject(bsp_commit),
+                          bsp_commit if (with_bsp_commit) else None,
+                          upstream_commit, from_kernel_ver)
 
 #====================================
 #
@@ -145,6 +147,7 @@ if __name__=='__main__':
     parser.add_option("-t", "--text",	action="store_true", default=False, dest="text")
     parser.add_option("-H", "--html",	action="store_true", default=False, dest="html")
     parser.add_option("-p", "--plane",	action="store_true", default=False, dest="plane")
+    parser.add_option("-b", "--bsp",	action="store_true", default=False, dest="bsp")
     (options, args) = parser.parse_args()
 
     cwd = os.getcwd()
@@ -181,4 +184,4 @@ if __name__=='__main__':
         options.plane):
         lx.add_print("plane")
 
-    lx.printout()
+    lx.printout(options.bsp)

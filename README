@@ -40,12 +40,13 @@
 
 	2) call parse_linux.py from Linux dir
 
-		> ${linux-bsp-stat}/script/parse_linux.py [-p] [-t] [-H] [commit_from] commit_to
+		> ${linux-bsp-stat}/script/parse_linux.py [-p] [-t] [-H] [-b] [commit_from] commit_to
 
 		-p		: plane output to display
 				  it will be selected if no -t / -H are added
 		-t		: output to txt  file
 		-H		: output to html file
+		-b		: print BSP commit also
 		commit_from	: parse commit from
 				  default: parseit from commit_to's Makefile
 		commit_to	: parse commit to
