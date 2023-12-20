@@ -142,8 +142,9 @@ class linux (lib.base):
 if __name__=='__main__':
 
     parser = optparse.OptionParser()
-    parser.add_option("-t", "--text", action="store_true", default=False, dest="text")
-    parser.add_option("-H", "--html", action="store_true", default=False, dest="html")
+    parser.add_option("-t", "--text",	action="store_true", default=False, dest="text")
+    parser.add_option("-H", "--html",	action="store_true", default=False, dest="html")
+    parser.add_option("-p", "--plane",	action="store_true", default=False, dest="plane")
     (options, args) = parser.parse_args()
 
     cwd = os.getcwd()
@@ -176,7 +177,8 @@ if __name__=='__main__':
         lx.add_print("html")
         cnt += 1
 
-    if (cnt == 0):
+    if (cnt == 0 or
+        options.plane):
         lx.add_print("plane")
 
     lx.printout()
