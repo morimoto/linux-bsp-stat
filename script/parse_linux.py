@@ -64,7 +64,7 @@ class linux (lib.base):
         #	data/v6.1,
         #	data/v6.2, ...
         #
-        ver_list_orig = self.runl("cd {}/data; ls".format(self.top))
+        ver_list_orig = self.runl("cd {}/data; ls".format(self.top()))
         ver_list_tgt = []
         for ver in ver_list_orig:
             # ver  : v6.1	v6.3-rc2
@@ -89,7 +89,7 @@ class linux (lib.base):
 
         # check version via ver_list_tgt
         for ver in ver_list_tgt:
-            ret = self.run("cd {}/data; grep -l {} {}".format(self.top, upstream_commit, ver))
+            ret = self.run("cd {}/data; grep -l {} {}".format(self.top(), upstream_commit, ver))
             if (ret):
                 return ret
 
@@ -100,7 +100,6 @@ class linux (lib.base):
     #--------------------
     def __init__(self, commit_to, commit_from = None):
 
-        self.top		= os.path.abspath("{}/..".format(os.path.dirname(__file__)))
         self.bsp_title		= commit_to.replace('/', '-')	# topic/bsp -> topic-bsp
         self.printout_way	= []
 

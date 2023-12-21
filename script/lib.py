@@ -29,6 +29,14 @@ class print_base:
 # base
 #===============================
 class base:
+    __top = os.path.abspath("{}/..".format(os.path.dirname(__file__)))
+
+    #--------------------
+    # top
+    #--------------------
+    def top(self):
+        return base.__top
+
     #--------------------
     # chomp
     #--------------------
