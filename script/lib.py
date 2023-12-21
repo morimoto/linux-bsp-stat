@@ -26,7 +26,7 @@ class print_base:
         self.file = open("{}.{}".format(bsp_title, suffix), "w", encoding="UTF-8")
 
 #===============================
-# printout base
+# base
 #===============================
 class base:
     #--------------------
