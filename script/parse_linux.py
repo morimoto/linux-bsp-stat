@@ -111,6 +111,7 @@ class linux (lib.base):
 
         self.commit_from = commit_from
         self.bsp_commit_list = self.runl("git log --oneline --format=%H {}..{}".format(commit_from, commit_to))
+        os.system("{}/script/make-ver.py".format(self.top()))
 
     #--------------------
     # add_print()

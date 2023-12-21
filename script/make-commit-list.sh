@@ -20,4 +20,8 @@ TO=$2
 
 TO_TXT=`echo "${TO}" | sed "s/\//-/g"`
 
+mkdir -p ${TOP}/data
+[ -f ${TOP}/data/${TO_TXT} ] && exit
+
+echo "make data/${TO_TXT}"
 git log --format=%H ${FROM}..${TO} > ${TOP}/data/${TO_TXT}
