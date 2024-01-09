@@ -110,7 +110,7 @@ class linux (lib.base):
                                              ver_log[3].split(" = ")[1])
 
         self.commit_from = commit_from
-        self.bsp_commit_list = self.runl("git log --oneline --format=%H {}..{}".format(commit_from, commit_to))
+        self.bsp_commit_list = self.runl("git log --oneline --no-merges --format=%H {}..{}".format(commit_from, commit_to))
         os.system("{}/script/make-ver.py".format(self.top()))
 
     #--------------------
