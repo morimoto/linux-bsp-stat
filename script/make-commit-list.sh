@@ -24,4 +24,4 @@ mkdir -p ${TOP}/data
 [ -f ${TOP}/data/${TO_TXT} ] && exit
 
 echo "make data/${TO_TXT}"
-git log --format=%H ${FROM}..${TO} > ${TOP}/data/${TO_TXT}
+git log --no-merges --format=%H ${FROM}..${TO} > ${TOP}/data/${TO_TXT}
