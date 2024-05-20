@@ -85,16 +85,3 @@
 				       v6.1.64-my-BSP.txt
 		> ls
 		... graph.pdf ...
-
------------------------------------------
-* How to update data file ?
------------------------------------------
-
-	When Linux kernel version was updated, someone need to update data file.
-
-	ex) v6.2 was released
-
-		> cd ${LINUX}
-		> ${linux-bsp-stat}/script/make-commit-list.sh v6.1 v6.2
-		> ls ${linux-bsp-stat}/data
-		... v6.2
