@@ -89,6 +89,8 @@ class linux (lib.base):
         #
         # Base kernel version
         f = commit_from.split(".")
+        f[0] = int(f[0][1:]) # remove "v" from "v6"
+        f[1] = int(f[1])
 
         ver_list_orig = self.runl("cd {}/data; ls | sort -V".format(self.top()))
         self.ver_list_tgt = []
@@ -97,6 +99,8 @@ class linux (lib.base):
             # v[0] : v6		v6
             # v[1] : 1		3-rc2
             v = ver.split(".")
+            v[0] = int(v[0][1:])  # remove "v" from "v6"
+            v[1] = int(v[1])
 
             # FIXME
             #
