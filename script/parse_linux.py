@@ -54,41 +54,8 @@ class linux (lib.base):
         if (not upstream_commit):
             return "Local"
 
-        # Base kernel version
-        f = self.commit_from.split(".")
-
-        # Avoid old base kernel version
-        #
-        # ex)
-        #	v6.8.12 BSP
-        #	data/v6.1,
-        #	data/v6.2, ...
-        #
-        ver_list_orig = self.runl("cd {}/data; ls".format(self.top()))
-        ver_list_tgt = []
-        for ver in ver_list_orig:
-            # ver  : v6.1	v6.3-rc2
-            # v[0] : v6		v6
-            # v[1] : 1		3-rc2
-            v = ver.split(".")
-
-            # FIXME
-            #
-            # We want to avoid below case too ?
-            #
-            # ex)
-            #	v6.8.12 BSP
-            #	data/v6.12,
-            #	data/v6.13,
-            #	...
-            #	data/v7.xx
-
-            if (v[0] > f[0] or
-                ((v[0] == f[0] and v[1] > f[1]))):
-                ver_list_tgt.append(ver)
-
         # check version via ver_list_tgt
-        for ver in ver_list_tgt:
+        for ver in self.ver_list_tgt:
             ret = self.run("cd {}/data; grep -l {} {}".format(self.top(), upstream_commit, ver))
             if (ret):
                 return ret
@@ -112,6 +79,38 @@ class linux (lib.base):
         self.commit_from = commit_from
         self.bsp_commit_list = self.runl("git log --oneline --no-merges --format=%H {}..{}".format(commit_from, commit_to))
         os.system("{}/script/make-ver.py".format(self.top()))
+
+        # Avoid old base kernel version
+        #
+        # ex)
+        #	v6.8.12 BSP
+        #	data/v6.1,
+        #	data/v6.2, ...
+        #
+        # Base kernel version
+        f = commit_from.split(".")
+
+        ver_list_orig = self.runl("cd {}/data; ls".format(self.top()))
+        self.ver_list_tgt = []
+        for ver in ver_list_orig:
+            # ver  : v6.1	v6.3-rc2
+            # v[0] : v6		v6
+            # v[1] : 1		3-rc2
+            v = ver.split(".")
+
+            # FIXME
+            #
+            # We want to avoid below case too ?
+            #
+            # ex)
+            #	v6.8.12 BSP
+            #	data/v6.12,
+            #	data/v6.13,
+            #	...
+            #	data/v7.xx
+            if (v[0] > f[0] or
+                ((v[0] == f[0] and v[1] > f[1]))):
+                self.ver_list_tgt.append(ver)
 
     #--------------------
     # add_print()
