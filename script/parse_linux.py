@@ -90,7 +90,7 @@ class linux (lib.base):
         # Base kernel version
         f = commit_from.split(".")
 
-        ver_list_orig = self.runl("cd {}/data; ls".format(self.top()))
+        ver_list_orig = self.runl("cd {}/data; ls | sort -V".format(self.top()))
         self.ver_list_tgt = []
         for ver in ver_list_orig:
             # ver  : v6.1	v6.3-rc2

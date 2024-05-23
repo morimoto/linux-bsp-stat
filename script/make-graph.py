@@ -33,7 +33,7 @@ class make_graph (lib.base):
                 sys.exit("{} is not exist".format(file))
             tmp += " {}".format(file)
 
-        ver_array = self.runl("cat {} | cut -d \"/\" -f 1 | sort | uniq | sed 's/ *$//'".format(tmp))
+        ver_array = self.runl("cat {} | cut -d \"/\" -f 1 | sort -V | uniq | sed 's/ *$//'".format(tmp))
 
         # we want to have...
         #	Local		v6.2
