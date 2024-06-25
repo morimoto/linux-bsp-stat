@@ -33,7 +33,7 @@ class linux (lib.base):
             if (m):
                 return m.group(1)
 
-        log = self.run("git log -1 {} | grep \"commit [0-f]* upstream\.\"".format(commit))
+        log = self.run("git log -1 {} | grep \"commit [0-f]* upstream\\.\"".format(commit))
         if (len(log)):
             m = re.search("commit ([0-f]+) upstream.", log)
             if (m):
