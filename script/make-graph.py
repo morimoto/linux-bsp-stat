@@ -19,10 +19,10 @@ class make_graph (lib.base):
     #--------------------
     def __init__(self, file_array):
 
-        pdf_name = "graph.pdf"
+        file_name = "graph.png"
 
-        if (os.path.exists(pdf_name)):
-            sys.exit("You alreay have {}".format(pdf_name))
+        if (os.path.exists(file_name)):
+            sys.exit("You alreay have {}".format(file_name))
 
         tmp = ""
         for file in file_array:
@@ -55,7 +55,7 @@ class make_graph (lib.base):
 
         # create gnuplot file
         with open("{}/gnuplot".format(dir), mode='w') as f:
-            f.write("set terminal pdf size 20cm,12cm\n"\
+            f.write("set terminal png size 1000,500\n"\
                     "set output \"{}\"\n"\
                     "set title \"patch statistic\"\n"\
                     "set offset 0, 2, 1, 0\n"\
@@ -67,7 +67,7 @@ class make_graph (lib.base):
                     "set xtics rotate by -20\n"\
                     "set key bottom outside\n"\
                     "\n"
-                    "plot \\\n".format(pdf_name))
+                    "plot \\\n".format(file_name))
 
             for ver in ver_array:
                 f.write("\"{}/{}\"	using 2:xticlabels(1) title \"{}\",\\\n".format(dir, ver, ver))
