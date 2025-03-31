@@ -5,7 +5,8 @@
 #
 #	create all v6.x version data
 #
-#		> make-ver.py 6
+#		> cd ${LINUX}
+#		> ${linux-bsp-stat}/script/make-ver.py 6
 #		make data/v6.0
 #		make data/v6.1
 #		make data/v6.2
@@ -13,7 +14,8 @@
 #
 #	create all version data since v5.0
 #
-#		> make-ver.py
+#		> cd ${LINUX}
+#		> ${linux-bsp-stat}/script/make-ver.py
 #		make data/v5.0
 #		...
 #		make data/v6.0
