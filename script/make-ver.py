@@ -36,7 +36,7 @@ class kernel_version (lib.base):
         None,	# v3.x	not supported
         20,	# v4.0 - v4.20
         19,	# v5.0 - v5.19
-        13,	# v6.0 - v6.13
+        14,	# v6.0 - v6.14
     ];
 
     #--------------------
